@@ -30,8 +30,10 @@ jobs:
     - name: Install Dependencies MacOS
       if: contains(matrix.os, 'macos')
       run: |
-        brew install gcc@${GCC_V}
-        sudo ln -s $(which gfortran-${GCC_V}) $(dirname $(which gfortran-${GCC_V}))/gfortran
+          ls /usr/local/bin/gfortran-*
+          ln -f -s /usr/local/bin/gfortran-${GCC_V} /usr/local/bin/gfortran
+          which gfortran-${GCC_V}
+          which gfortran
 
     - name: Install Dependencies Windows
       if: contains(matrix.os, 'windows')
