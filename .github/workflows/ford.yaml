@@ -2,6 +2,9 @@ name: Build and Deploy Documentation
 
 on: [push, pull_request]
 
+permissions:
+  contents: write
+
 jobs:
   documentation:
     runs-on: ubuntu-22.04
