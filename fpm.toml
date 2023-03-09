@@ -1,0 +1,22 @@
+# TOML file for fpm as described at https://github.com/fortran-lang/fpm/blob/master/manifest-reference.md
+name = "interpolation"
+version = "0.1.0"
+license = "MIT"
+author = "Jiří Fürst"
+maintainer = "Jiri.Furst@gmail.com"
+copyright = "Copyright 2023, Jiri Furst"
+
+[build]
+auto-executables = true
+auto-tests = true
+auto-examples = true
+
+[install]
+library = false
+
+[dependencies]
+stdlib.git = "https://github.com/fortran-lang/stdlib"
+stdlib.branch = "stdlib-fpm"
+
+[dev-dependencies]
+test-drive.git = "https://github.com/fortran-lang/test-drive"
