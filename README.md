@@ -9,7 +9,7 @@ The library implements `interp1` function similar to Octave/MATLAB.
 ## Example program
 
 ```fortran
-rogram example1
+program example1
 
   use iso_fortran_env, only: real64
   use interpolation
@@ -25,6 +25,8 @@ rogram example1
 
 end program example1
 ```
+
+More examples can be found in `example` folder.
 
 ## Use in FPM project
 Add the library as a dependency
