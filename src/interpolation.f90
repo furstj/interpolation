@@ -51,12 +51,74 @@ module interpolation
      module procedure interp1_rank11
   end interface interp1
 
-  public :: interp1
+  
+  type interp1_t
+     !! Class implementing scalar interpolations
+     !!
+     !! The class implements interpolation of scalar quantity
+     !! given at discrete points. It is a wraper to `interp`` function.
+     !!
+     !! @note
+     !! The class supports only interpolation of scalars! For vectors
+     !! use directly `interp1` function.
+     
+     real(rkind), allocatable :: x(:)         !! array of sample points
+     real(rkind), allocatable :: y(:)         !! array of values in sample points
+     character(len=:), allocatable :: method  !! interpolation method, @see interp1
+     character(len=:), allocatable :: extrap  !! extrapolation method, @see interp1
+   contains
+     procedure :: at => interp1_t_at          !! returns interpolated value at given point
+  end type interp1_t
+
+  interface interp1_t
+     module procedure create_interp1_t
+  end interface interp1_t
+
+  
+  public :: interp1, interp1_t
 
   
 contains
 
-  function interp1_rank00(x, y, xi, method, extrap) result(yi)
+  !======================================================================
+  ! class interp1_t
+  !======================================================================
+  function create_interp1_t(x, y, method, extrap) result(i1)
+    real(rkind), intent(in)  :: x(:)
+    real(rkind), intent(in)  :: y(size(x))
+    character(len=*), intent(in), optional :: method
+    character(len=*), intent(in), optional :: extrap
+    type(interp1_t) :: i1
+
+    i1%x = x
+    i1%y = y
+    if (present(method)) then
+       i1%method = method
+    else
+       i1%method = "linear"
+    end if
+
+    if (present(extrap)) then
+       i1%extrap = extrap
+    else
+       i1%extrap = "NaN"
+    end if
+  end function create_interp1_t
+
+
+  pure function interp1_t_at(self, xi) result(yi)
+    class(interp1_t), intent(in) :: self
+    real(rkind), intent(in)      :: xi
+    real(rkind)                  :: yi
+    yi = interp1(self%x, self%y, xi, self%method, self%extrap)
+  end function interp1_t_at
+
+  
+  !======================================================================
+  ! function interp1
+  !======================================================================
+
+  pure function interp1_rank00(x, y, xi, method, extrap) result(yi)
     real(rkind), intent(in) :: x(:)
     real(rkind), intent(in) :: y(size(x))
     real(rkind), intent(in) :: xi
@@ -70,7 +132,7 @@ contains
   end function interp1_rank00
 
   
-  function interp1_rank01(x, y, xi, method, extrap) result(yi)
+  pure function interp1_rank01(x, y, xi, method, extrap) result(yi)
     real(rkind), intent(in) :: x(:)
     real(rkind), intent(in) :: y(size(x))
     real(rkind), intent(in) :: xi(:)
@@ -84,7 +146,7 @@ contains
   end function interp1_rank01
 
 
-  function interp1_rank10(x, y, xi, method, extrap) result(yi)
+  pure function interp1_rank10(x, y, xi, method, extrap) result(yi)
     real(rkind), intent(in) :: x(:)
     real(rkind), intent(in) :: y(:,:)
     real(rkind), intent(in) :: xi
@@ -98,8 +160,7 @@ contains
   end function interp1_rank10
 
 
-  function interp1_rank11(x, y, xi, method, extrap) result(yi)
-    use stdlib_error, only: error_stop
+  pure function interp1_rank11(x, y, xi, method, extrap) result(yi)
     use stdlib_optval, only: optval
     real(rkind), intent(in) :: x(:)
     real(rkind), intent(in) :: y(:,:)
@@ -118,8 +179,7 @@ contains
   ! IMPLEMENTATION
   !======================================================================
 
-  function interp1_dispatch(x, y, xi, method, extrap) result(yi)
-    use stdlib_error, only: error_stop
+  pure function interp1_dispatch(x, y, xi, method, extrap) result(yi)
     use stdlib_optval, only: optval
     real(rkind), intent(in) :: x(:)
     real(rkind), intent(in) :: y(:,:)
@@ -138,7 +198,7 @@ contains
        call interpolate_pchip(yarray, x, y, xi, optval(extrap, "NaN"))
 
     case default
-       call error_stop("interp1 supports only method='linear', 'pchip', or 'cubic'")
+       error stop "interp1 supports only method='linear', 'pchip', or 'cubic'"
        
     end select
 
@@ -146,7 +206,7 @@ contains
   end function interp1_dispatch
 
   
-  subroutine interpolate_linearly(yi, x, y, xi, extrap)
+  pure subroutine interpolate_linearly(yi, x, y, xi, extrap)
     ! Calculates linear interpolation with given extrapolation method.
     ! The method is either 'extrap' or 'NaN'
     use stdlib_error, only: error_stop
@@ -165,16 +225,15 @@ contains
        elseif (extrap == "NaN") then
           yi(:,k) = ieee_value(1.0, ieee_quiet_nan)
        else
-          call error_stop("interp1 supports only extrap='extrap' or 'NaN'")
+          error stop "interp1 supports only extrap='extrap' or 'NaN'"
        end if
     end do
   end subroutine interpolate_linearly
 
   
-  subroutine interpolate_pchip(yi, x, y, xi, extrap)
+  pure subroutine interpolate_pchip(yi, x, y, xi, extrap)
     ! Calculates piecewise cubic interpolation with given extrapolation method.
     ! The method is either 'extrap' or 'NaN'
-    use stdlib_error, only: error_stop
     use, intrinsic :: ieee_arithmetic, only: ieee_value, ieee_quiet_nan
     real(rkind), intent(out) :: yi(:,:)
     real(rkind), intent(in)  :: x(:)
@@ -212,7 +271,7 @@ contains
        elseif (extrap == "NaN") then
           yi(:,k) = ieee_value(1.0, ieee_quiet_nan)
        else
-          call error_stop("interp1 supports only extrap='extrap' or 'NaN'")
+          error stop "interp1 supports only extrap='extrap' or 'NaN'"
        end if
     end do
 
