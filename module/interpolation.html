@@ -52,14 +52,16 @@
             <li><a href="../sourcefile/interpolation.f90.html">Source File</a></li>
             <li><a href="../lists/modules.html">Modules</a></li>
             <li><a href="../lists/procedures.html">Procedures</a></li>
-              
+                   <li><a href="../lists/types.html">Derived Types</a></li>
+       
             </ul>
         
             </li>
 <li class="visible-xs hidden-sm visible-lg"><a href="../sourcefile/interpolation.f90.html">Source File</a></li>
 <li class="visible-xs hidden-sm visible-lg"><a href="../lists/modules.html">Modules</a></li>
 <li class="visible-xs hidden-sm visible-lg"><a href="../lists/procedures.html">Procedures</a></li>
-                                       </ul>
+                             <li class="visible-xs hidden-sm visible-lg"><a href="../lists/types.html">Derived Types</a></li>
+          </ul>
         <form action="../search.html" class="navbar-form navbar-right" role="search">
         <div class="form-group">
           <input type="text" class="form-control" placeholder="Search" name="q" id="tipue_search_input" autocomplete="off" required>
@@ -85,7 +87,7 @@
      <li><i class="fa fa-list-ol"></i>
        <a data-toggle="tooltip"
     data-placement="bottom" data-html="true"
-    title="100.0% of total for modules and submodules.">157 statements</a>
+    title="100.0% of total for modules and submodules.">190 statements</a>
      </li> 
     <li><i class="fa fa-code"></i><a href="../src/interpolation.f90"> Source File</a></li>
   </ul>
@@ -114,6 +116,15 @@
   <div id="inters-0" class="panel-collapse collapse">
     <div class="list-group">
       <a class="list-group-item" href="../module/interpolation.html#interface-interp1">interp1</a>
+      <a class="list-group-item" href="../module/interpolation.html#interface-interp1_t">interp1_t</a>
+    </div>
+  </div>
+</div>
+<div class="panel panel-primary">
+  <div class="panel-heading text-left"><h3 class="panel-title"><a data-toggle="collapse" href="#types-0">Derived Types</a></h3></div>
+  <div id="types-0" class="panel-collapse collapse">
+    <div class="list-group">
+      <a class="list-group-item" href="../module/interpolation.html#type-interp1_t">interp1_t</a>
     </div>
   </div>
 </div>
@@ -152,6 +163,15 @@
   <div id="inters-1" class="panel-collapse collapse">
     <div class="list-group">
       <a class="list-group-item" href="../module/interpolation.html#interface-interp1">interp1</a>
+      <a class="list-group-item" href="../module/interpolation.html#interface-interp1_t">interp1_t</a>
+    </div>
+  </div>
+</div>
+<div class="panel panel-primary">
+  <div class="panel-heading text-left"><h3 class="panel-title"><a data-toggle="collapse" href="#types-1">Derived Types</a></h3></div>
+  <div id="types-1" class="panel-collapse collapse">
+    <div class="list-group">
+      <a class="list-group-item" href="../module/interpolation.html#type-interp1_t">interp1_t</a>
     </div>
   </div>
 </div>
@@ -171,7 +191,7 @@
   </div>
   <ul class="list-group">
     <li class="list-group-item">
-    <h3>private function interp1_rank00(x, y, xi, method, extrap) result(yi)</h3>    
+    <h3>private pure function interp1_rank00(x, y, xi, method, extrap) result(yi)</h3>    
 <h4>Arguments</h4>      <table class="table table-striped varlist">
 <thead><tr><th>Type</th><th>Intent</th><th>Optional</th><th>Attributes</th><th></th><th>Name</th><th></th></thead>
 <tbody>
@@ -212,7 +232,7 @@
 
     </li>
     <li class="list-group-item">
-    <h3>private function interp1_rank01(x, y, xi, method, extrap) result(yi)</h3>    
+    <h3>private pure function interp1_rank01(x, y, xi, method, extrap) result(yi)</h3>    
 <h4>Arguments</h4>      <table class="table table-striped varlist">
 <thead><tr><th>Type</th><th>Intent</th><th>Optional</th><th>Attributes</th><th></th><th>Name</th><th></th></thead>
 <tbody>
@@ -253,7 +273,7 @@
 
     </li>
     <li class="list-group-item">
-    <h3>private function interp1_rank10(x, y, xi, method, extrap) result(yi)</h3>    
+    <h3>private pure function interp1_rank10(x, y, xi, method, extrap) result(yi)</h3>    
 <h4>Arguments</h4>      <table class="table table-striped varlist">
 <thead><tr><th>Type</th><th>Intent</th><th>Optional</th><th>Attributes</th><th></th><th>Name</th><th></th></thead>
 <tbody>
@@ -294,7 +314,7 @@
 
     </li>
     <li class="list-group-item">
-    <h3>private function interp1_rank11(x, y, xi, method, extrap) result(yi)</h3>    
+    <h3>private pure function interp1_rank11(x, y, xi, method, extrap) result(yi)</h3>    
 <h4>Arguments</h4>      <table class="table table-striped varlist">
 <thead><tr><th>Type</th><th>Intent</th><th>Optional</th><th>Attributes</th><th></th><th>Name</th><th></th></thead>
 <tbody>
@@ -337,10 +357,77 @@
   </ul>
 </div>
 
+     <div class="panel panel-default">
+  <div class="panel-heading codesum"><span class="anchor" id="interface-interp1_t"></span><h3>public interface <a href='../interface/interp1_t.html'>interp1_t</a>  </h3></div>
+  <ul class="list-group">
+    <li class="list-group-item">
+    <h3>private function create_interp1_t(x, y, method, extrap) result(i1)</h3>    
+<h4>Arguments</h4>      <table class="table table-striped varlist">
+<thead><tr><th>Type</th><th>Intent</th><th>Optional</th><th>Attributes</th><th></th><th>Name</th><th></th></thead>
+<tbody>
+<tr>
+  <td><span class="anchor" ></span>real(kind=rkind),</td>
+<td>intent(in)</td>
+  <td></td>  <td></td><td>::</td>
+  <td><strong>x</strong>(:)</td><td></td>
+</tr>
+<tr>
+  <td><span class="anchor" ></span>real(kind=rkind),</td>
+<td>intent(in)</td>
+  <td></td>  <td></td><td>::</td>
+  <td><strong>y</strong>(size(x))</td><td></td>
+</tr>
+<tr>
+  <td><span class="anchor" ></span>character(len=*),</td>
+<td>intent(in),</td>
+  <td>optional</td>  <td></td><td>::</td>
+  <td><strong>method</strong></td><td></td>
+</tr>
+<tr>
+  <td><span class="anchor" ></span>character(len=*),</td>
+<td>intent(in),</td>
+  <td>optional</td>  <td></td><td>::</td>
+  <td><strong>extrap</strong></td><td></td>
+</tr>
+</tbody>
+</table>
+
+<h4>Return Value <small>type(<a href='../type/interp1_t.html'>interp1_t</a>)</small></h4>  
+
+    </li>
+  </ul>
+</div>
+
     </section>
   <br>
 
     
+    <section>
+     <h2>Derived Types</h2>
+     <div class="panel panel-default">
+  <div class="panel-heading codesum"><span class="anchor" id="type-interp1_t"></span><h3>type, public :: <a href='../type/interp1_t.html'>interp1_t</a>  </h3></div>
+  <div class="panel-body">
+    <p>Class implementing scalar interpolations</p><a href="../type/interp1_t.html" class="pull-right"><emph>Read more&hellip;</emph></a>
+     <h4>Constructor</h4>
+         
+       <table class="table table-striped varlist">
+      <tbody>
+             <tr><td>private  function <strong>create_interp1_t</strong>(x, y, method, extrap)</td><td></td></tr>
+       </tbody>
+       </table>
+     
+     <h4>Type-Bound Procedures</h4>
+      <table class="table table-striped varlist">
+      <tbody>
+       <tr><td>procedure, public :: <strong><a href='../type/interp1_t.html#boundprocedure-at'>at</a></strong>  => interp1_t_at </td>
+       <td><p>returns interpolated value at given point</p></td></tr>
+       </tbody>
+       </table>
+  </div>
+</div>
+
+    </section>
+  <br>
     
 
     
@@ -359,7 +446,7 @@
           <p class="text-right">
             Documentation generated by 
             <a href="https://github.com/Fortran-FOSS-Programmers/ford">FORD</a>
- on 2023-03-10 15:13            </p>
+ on 2023-03-29 14:18            </p>
         </div>
       </div>
       <br>
