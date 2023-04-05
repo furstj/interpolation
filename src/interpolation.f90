@@ -278,6 +278,8 @@ contains
    contains
 
       elemental function harmonic_mean(da, db, ha, hb) result(c)
+         !! Calculates harmonic mean of two numbers
+         !! da and db are the derivatives at the two points, ha and hb are the step sizes
          real(rkind), intent(in) :: da, db
          real(rkind), intent(in) :: ha, hb
          real(rkind)             :: c
