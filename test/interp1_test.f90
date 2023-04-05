@@ -14,7 +14,8 @@ program interp1_test
   testsuites = [ &
        new_testsuite("linear interpolation, scalar", collect_lin_scalar), &
        new_testsuite("linear interpolation, array", collect_lin_array), &
-       new_testsuite("pchip interpolation, scalar", collect_pchip_scalar) &
+       new_testsuite("pchip interpolation, scalar", collect_pchip_scalar), &
+       new_testsuite("linear interpolator class", collect_lin_class) &
        ]
 
   do is = 1, size(testsuites)
@@ -185,6 +186,75 @@ contains
 
 
   end subroutine test_pchip_interpolation
+
+  !======================================================================
+  ! class for linear interpolation of scalars
+  !======================================================================
+  
+  ! Check linear interpolation of scalar data
+  subroutine collect_lin_class(testsuite)
+    use testdrive, only : new_unittest, unittest_type
+    implicit none
+    type(unittest_type), allocatable, intent(out) :: testsuite(:)
+
+    testsuite = [ &
+         new_unittest("scalar interpolation", test_lin_class_interpolation), &
+         new_unittest("scalar extrapolation", test_lin_class_extrapolation) &
+         ]
+  end subroutine collect_lin_class
+
+
+  ! Tests linear interpolation of scalars
+  subroutine test_lin_class_interpolation(error)
+    use interpolation, only: interp1_t
+    type(error_type), allocatable, intent(out) :: error
+    real(rkind) :: x(3) = [ 1.0, 2.0, 4.0 ]
+    real(rkind) :: y(3) = [ 5.0, 6.0, 4.0 ]
+    type(interp1_t) :: itp
+
+    itp = interp1_t(x, y)
+    
+    call check(error, itp%at(1.5d0), 5.5d0)
+    if (allocated(error)) return
+    
+    call check(error, itp%at(3.0d0), 5.0d0)
+    if (allocated(error)) return
+    
+    itp = interp1_t(x, y, method="linear")
+
+    call check(error, itp%at(3.0d0), 5.0d0)
+    if (allocated(error)) return
+    
+  end subroutine test_lin_class_interpolation
+
+
+  ! Test linear extrapolation with scalar
+  subroutine test_lin_class_extrapolation(error)
+    use, intrinsic :: ieee_arithmetic, only: ieee_is_nan
+    use interpolation, only: interp1_t
+    type(error_type), allocatable, intent(out) :: error
+    real(rkind) :: x(3) = [ 1.0, 2.0, 4.0 ]
+    real(rkind) :: y(3) = [ 5.0, 6.0, 4.0 ]
+    type(interp1_t) :: itp
+
+    itp = interp1_t(x, y)
+
+    call check(error, ieee_is_nan(itp%at(0.5d0)))
+    if (allocated(error)) return
+
+    call check(error, ieee_is_nan(itp%at(4.5d0)))
+    if (allocated(error)) return
+
+    itp = interp1_t(x, y, extrap="extrap")
+    
+    call check(error, itp%at(0.5d0), 4.5d0)
+    if (allocated(error)) return
+    
+    call check(error, itp%at(6.0d0), 2.0d0)
+    if (allocated(error)) return
+    
+  end subroutine test_lin_class_extrapolation
+
 
 
 end program interp1_test
