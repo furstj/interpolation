@@ -15,8 +15,7 @@ auto-examples = true
 library = false
 
 [dependencies]
-stdlib.git = "https://github.com/fortran-lang/stdlib"
-stdlib.branch = "stdlib-fpm"
+stdlib = "*"
 
 [dev-dependencies]
 test-drive.git = "https://github.com/fortran-lang/test-drive"
