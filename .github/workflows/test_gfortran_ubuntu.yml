@@ -36,7 +36,7 @@ jobs:
            wget https://github.com/fortran-lang/fpm/releases/download/v0.9.0/fpm-0.9.0.F90
            mkdir -p /home/runner/.local/bin
            ulimit -c unlimited -d unlimited -f unlimited -m unlimited -s unlimited -t unlimited -v unlimited -x unlimited
-           gfortran fpm.F90 -static -o /home/runner/.local/bin/fpm
+           gfortran fpm-0.9.0.F90 -static -o /home/runner/.local/bin/fpm
            ls -l
 
     - name: Display environment
