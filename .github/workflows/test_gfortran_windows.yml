@@ -9,7 +9,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [windows-latest]
-        gcc_v: [12] # Version of GFortran we want to use.
+        gcc_v: [10] # Version of GFortran we want to use.
         include:
 
         - os: windows-latest
@@ -29,7 +29,7 @@ jobs:
     - name: Install fpm
       run: |
            curl https://github.com/fortran-lang/fpm/releases/download/v0.9.0/fpm-0.9.0.F90 --output fpm.F90
-           gfortran fpm.F90 -o fpm -D_WIN32 2>&1
+           gfortran --static fpm.F90 -o fpm -D_WIN32 2>&1
            dir
       shell: cmd
 
