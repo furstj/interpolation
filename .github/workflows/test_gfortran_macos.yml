@@ -30,9 +30,9 @@ jobs:
 
     - name: Install fpm
       run: |
-           wget https://raw.githubusercontent.com/urbanjost/index/main/bootstrap/fpm.F90
+           wget https://github.com/fortran-lang/fpm/releases/download/v0.9.0/fpm-0.9.0.F90
            mkdir -p /Users/runner/bin
-           gfortran fpm.F90 -o /Users/runner/bin/fpm
+           gfortran fpm-0.9.0.F90 -o /Users/runner/bin/fpm
            ls -l
 
     - name: Display environment

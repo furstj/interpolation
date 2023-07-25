@@ -40,8 +40,8 @@ jobs:
            echo $PATH
            pwd
            uname -a
-           wget https://raw.githubusercontent.com/urbanjost/index/main/bootstrap/fpm.F90
-           gfortran fpm.F90 -o fpm
+           wget https://github.com/fortran-lang/fpm/releases/download/v0.9.0/fpm-0.9.0.F90
+           gfortran fpm-0.9.0.F90 -o fpm
            ls -l
 
     - name: tests (release)
