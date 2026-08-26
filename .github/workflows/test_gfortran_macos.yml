@@ -11,7 +11,7 @@ jobs:
         os: [ macos-latest ]
         include:
         - os: macos-latest
-          gcc_v: 12
+          gcc_v: 15
     env:
       FC: gfortran
       GCC_V: ${{ matrix.gcc_v }}
@@ -23,9 +23,20 @@ jobs:
 
     - name: Install GFortran macOS
       run: |
-          ls /usr/local/bin/gfortran-*
-          ln -f -s /usr/local/bin/gfortran-${GCC_V} /usr/local/bin/gfortran
-          which gfortran-${GCC_V}
+          # Find gfortran; on Apple Silicon runners it is in /opt/homebrew/bin
+          if ls /opt/homebrew/bin/gfortran-* 2>/dev/null | grep -q .; then
+            GFORTRAN_DIR=/opt/homebrew/bin
+          else
+            GFORTRAN_DIR=/usr/local/bin
+          fi
+          ls ${GFORTRAN_DIR}/gfortran-*
+          # Use the requested version if available, otherwise pick the first one found
+          if [ -f ${GFORTRAN_DIR}/gfortran-${GCC_V} ]; then
+            GFORTRAN_BIN=${GFORTRAN_DIR}/gfortran-${GCC_V}
+          else
+            GFORTRAN_BIN=$(ls ${GFORTRAN_DIR}/gfortran-* | head -1)
+          fi
+          sudo ln -f -s ${GFORTRAN_BIN} /usr/local/bin/gfortran
           which gfortran
 
     - name: Install fpm
