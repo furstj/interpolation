@@ -11,7 +11,7 @@ jobs:
         os: [ubuntu-latest ]
         include:
         - os: ubuntu-latest
-          gcc_v: 12
+          gcc_v: 13
 
     env:
       FC: gfortran
@@ -33,7 +33,7 @@ jobs:
            echo $PATH
            pwd
            uname -a
-           wget https://github.com/fortran-lang/fpm/releases/download/v0.9.0/fpm-0.9.0.F90
+           wget https://github.com/fortran-lang/fpm/releases/download/v0.13.0/fpm-0.13.0.F90
            mkdir -p /home/runner/.local/bin
            ulimit -c unlimited -d unlimited -f unlimited -m unlimited -s unlimited -t unlimited -v unlimited -x unlimited
            gfortran fpm-0.9.0.F90 -static -o /home/runner/.local/bin/fpm
